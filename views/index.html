@@ -47,11 +47,12 @@
               
               
               <script>
-                  var task = {Task:'', Priority:'', Notes: ''}
+                  var task = {Title:'', Priority:'', Notes: ''}
                    $('#submit').click(function(){
-                      task.Task = $("#exampleFormControlInput1").val()
+                      task.Title = $("#exampleFormControlInput1").val()
                       task.Priority = $("#exampleFormControlSelect1").val()
                       task.Notes = $("#exampleFormControlTextarea1").val()
+                      console.log(task)
                       $.ajax({
                           method: "POST",
                           url: '/submit',

@@ -5,8 +5,6 @@ var server = http.Server(app);
 var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended:true}))
 
-// var mongo = require('mongodb')
-
 var mongoose = require('mongoose')
 
 var db, uri = "mongodb+srv://sajid9505:MongoDBatlas@cluster0-ebrcf.mongodb.net/testretryWrites=true&w=majority"
@@ -20,41 +18,52 @@ mongoose.connection.on('error', function(err){
     console.log('Could not connect to MongoDB')
 })
 
+var Schema = mongoose.Schema
+var taskSchema = new Schema(
+  {
+    Title: {
+      type:String,
+      required: "Name is required"
+    },
+    Notes:{
+      type:String,
+      required: "Note is required"
+    },
+    Priority:{
+        type: Number,
+        required: "Rating is required between 0 to 10"
+    }
+  }
+)
 
-
-// mongo.MongoClient.connect(uri, 
-//     {useNewUrlParser:true, useUnifiedTopology: true }, 
-//     function(err, client){
-//         if(err){
-//             console.log('Could not connect to MongoDB')
-//         }else{
-//             db = client.db('test')
-//         }
-//     })
-
-//  var save = function(form_data){
-//     db.createCollection('task', function(err, collection){})
-//     var collection = db.collection('task')
-//     collection.save(form_data)
-// }  
-
+var Task = mongoose.model('artices', taskSchema)
 
 
 app.use(bodyParser.urlencoded({extended:true}))
-require('./routes/task.routes')(app)
-let task = []
 
-require('./routes/task.routes')(app)
+app.post('/submit',function(request,response){
+  let task = new Task(request.body)
+  console.log(request.body)
+  task.save(function(err,data){
+    if(err){
+        console.log(err)
+          return response.status(400).json({msg:"make sure the all fields are filled us or the rating between 0 to 5 "})
+    }
+    response.status(200).json({task:data})
+  })
+  
+ 
+}) 
 
+  app.get('/',function(request,response){
+    response.sendFile(__dirname+'/views/index.html')
+  })
 
-app.get('/', function(request, response){
-  response.sendFile(__dirname+'/views/index.html')
-})
-
-app.get('/singleview', function(request, response){
-  response.sendFile(__dirname+'/views/Singleview.html')
-})
+  
 
   server.listen(3000, 'localhost', function(){
     console.log('Server running');
   });
+
+
+  
