@@ -4,11 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Single View</title>
+    <title>Single view</title>
+    <style>
+        body{
+            text-align: center;
+            background-color: antiquewhite;
+        }
+        .round {
+            border-radius: 50%;
+            background: #73AD21;
+            padding: 20px;
+            width: 200px;
+            height: 150px;
+            text-align: center;
+        }
+        #p1{
+            font-weight: bold;
+            color: white;
+            font-size: 30px;
+        }
+        #p3{
+            color: white;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-        <p> hello world</p>
-
-
+    <div class="round">
+        <p id="p1"><%= task.Title %></p>
+        <p id="p2"><%= task.Priority %></p>
+        <p id="p3"><%= task.Notes %></p>
+    </div>
 </body>
 </html>

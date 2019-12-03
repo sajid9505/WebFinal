@@ -47,18 +47,23 @@
               
               
               <script>
-                  var task = {Title:'', Priority:'', Notes: ''}
+                  var taskInfo = {Title:'', Priority:'', Notes: ''}
                    $('#submit').click(function(){
-                      task.Title = $("#exampleFormControlInput1").val()
-                      task.Priority = $("#exampleFormControlSelect1").val()
-                      task.Notes = $("#exampleFormControlTextarea1").val()
-                      console.log(task)
+                      taskInfo.Title = $("#exampleFormControlInput1").val()
+                      taskInfo.Priority = $("#exampleFormControlSelect1").val()
+                      taskInfo.Notes = $("#exampleFormControlTextarea1").val()
+                      console.log(taskInfo)
                       $.ajax({
                           method: "POST",
                           url: '/submit',
-                          data: task
+                          data: taskInfo
                       }).done(function(response){
-                          console.log(response)
+                        $('#exampleFormControlInput1').val('')
+                        $('#exampleFormControlSelect1').val('')
+                        $('#exampleFormControlTextarea1').val('')
+                        $('#error').css("color", "blue");
+                        $('#error').text(response.message)
+                        window.location.replace('/new/' + response.taskInfo._id) 
                       }).fail(function(response){
                           console.log(response)
                       })

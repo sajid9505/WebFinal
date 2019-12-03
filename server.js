@@ -36,7 +36,7 @@ var taskSchema = new Schema(
   }
 )
 
-var Task = mongoose.model('artices', taskSchema)
+var Task = mongoose.model('Task', taskSchema)
 
 
 app.use(bodyParser.urlencoded({extended:true}))
@@ -47,7 +47,7 @@ app.post('/submit',function(request,response){
   task.save(function(err,data){
     if(err){
         console.log(err)
-          return response.status(400).json({msg:"make sure the all fields are filled us or the rating between 0 to 5 "})
+          return response.status(400).json({msg:"Fields must be from 1-10 "})
     }
     response.status(200).json({task:data})
   })
@@ -59,6 +59,23 @@ app.post('/submit',function(request,response){
     response.sendFile(__dirname+'/views/index.html')
   })
 
+  app.get('/new/:index',function(request,response){
+    if(request.params.index){
+        //response.json(articles[request.params])
+        //response.render('article.ejs',{article:articles[request.params.index]})
+        Task.find({'_id': request.params.index},function(err,data){
+          if(err){
+            console.log(err)
+            return response.status(400).json({msg:'No query'})
+     
+          }
+          return response.render('singleview.ejs',{task:data[0]})
+        })
+      }
+      else{
+        return response.json({msg:"Task not found"})
+      }
+  })
   
 
   server.listen(3000, 'localhost', function(){
