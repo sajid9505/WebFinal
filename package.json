@@ -1,0 +1,28 @@
+{
+  "name": "webfinal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sajid9505/WebFinal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sajid9505/WebFinal/issues"
+  },
+  "homepage": "https://github.com/sajid9505/WebFinal#readme",
+  "dependencies": {
+    "db": "^1.1.1",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mongo": "^0.1.0",
+    "mongoose": "^5.7.13",
+    "nodemon": "^2.0.1"
+  }
+}
